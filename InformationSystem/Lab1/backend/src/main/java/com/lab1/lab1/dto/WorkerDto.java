@@ -18,7 +18,7 @@ public class WorkerDto {
     @NotNull(message = "Coordinates cannot be null")
     private CoordinatesDto coordinates;
 
-    private ZonedDateTime creationDate; // автогенерация на сервере
+    private ZonedDateTime creationDate; 
 
     @NotNull(message = "Organization ID cannot be null")
     @Positive(message = "Organization ID must be positive")
@@ -39,7 +39,7 @@ public class WorkerDto {
     private Status status;
 
     @Positive(message = "Person ID must be positive")
-    private Long personId; // может быть null
+    private Long personId; 
 
 
     public Worker toEntity(Organization org, Person person) {
