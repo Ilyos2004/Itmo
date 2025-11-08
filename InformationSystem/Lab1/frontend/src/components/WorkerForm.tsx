@@ -77,7 +77,7 @@ export default function WorkerForm({ initial, onSubmit, submitText = 'Сохра
 
     return (
         <form onSubmit={submit} className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* 1) PERSON */}
+            {/*  PERSON */}
             <div className="card lg:col-span-2">
                 <h3 className="text-lg font-semibold mb-4">Персона</h3>
                 <SelectOrCreatePerson value={personLink as any} onChange={setPersonLink as any} />
@@ -93,18 +93,8 @@ export default function WorkerForm({ initial, onSubmit, submitText = 'Сохра
                 {err('person.weight')}
             </div>
 
-            {/* 2) ORGANIZATION */}
-            <div className="card lg:col-span-2">
-                <h3 className="text-lg font-semibold mb-4">Организация</h3>
-                <SelectOrCreateOrganization value={orgLink as any} onChange={setOrgLink as any} />
-                {err('organization.id')}
-                {err('organization.annualTurnover')}
-                {err('organization.employeesCount')}
-                {err('organization.rating')}
-                {err('organization.type')}
-            </div>
 
-            {/* 3) WORKER */}
+            {/*  WORKER */}
             <div className="card lg:col-span-2">
                 <h3 className="text-lg font-semibold mb-4">Работник</h3>
                 <div className="grid gap-3">
@@ -158,6 +148,18 @@ export default function WorkerForm({ initial, onSubmit, submitText = 'Сохра
                         <input className="input" type="date" value={data.endDate ?? ''} onChange={e=>change('endDate', e.target.value || null)} />
                     </div>
                 </div>
+            </div>
+
+
+            {/*  ORGANIZATION */}
+            <div className="card lg:col-span-2">
+                <h3 className="text-lg font-semibold mb-4">Организация</h3>
+                <SelectOrCreateOrganization value={orgLink as any} onChange={setOrgLink as any} />
+                {err('organization.id')}
+                {err('organization.annualTurnover')}
+                {err('organization.employeesCount')}
+                {err('organization.rating')}
+                {err('organization.type')}
             </div>
 
             <div className="lg:col-span-2 flex gap-2 justify-end">

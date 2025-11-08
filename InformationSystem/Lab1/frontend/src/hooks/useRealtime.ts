@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 
 
-// Простое автообновление: long-polling каждые N секунд
+// Простое автообновление  каждые N секунд
 export function useRealtime(cb: () => void, intervalMs = 5000) {
     useEffect(() => {
         const id = setInterval(() => cb(), intervalMs)

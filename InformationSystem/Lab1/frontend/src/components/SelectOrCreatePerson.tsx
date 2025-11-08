@@ -92,7 +92,7 @@ export default function SelectOrCreatePerson({ value, onChange }: Props) {
                     ) : effective?.mode === 'new' ? (
                         <div className="grid gap-3">
                             <div>
-                                <label className="label">Per Name</label>
+                                <label className="label">Fullname</label>
                                 <input
                                     className="input"
                                     value={effective.data.perName ?? ''}
