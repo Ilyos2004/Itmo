@@ -39,7 +39,7 @@ export async function listOrganizations(): Promise<OrganizationRowNormalized[]> 
         .map((x: any) => {
             const id = pickId(x)
             if (id == null) return null
-            const orgName = x.orgName ?? x.name ?? x.title ?? null   // ← используем orgName
+            const orgName = x.orgName ?? x.name ?? x.title ?? null   
             const type = x.type ?? x.organizationType ?? null
             const rating = x.rating ?? x.orgRating ?? null
             const parts: string[] = []
@@ -65,7 +65,7 @@ export async function listPersons(): Promise<PersonRowNormalized[]> {
         .map((x: any) => {
             const id = pickId(x)
             if (id == null) return null
-            const perName = x.perName ?? x.fullName ?? x.name ?? null // ← используем perName
+            const perName = x.perName ?? x.fullName ?? x.name ?? null 
             const passport = x.passportID ?? x.passportId ?? null
             const parts: string[] = []
             if (perName) parts.push(String(perName))
@@ -80,7 +80,7 @@ export async function listPersons(): Promise<PersonRowNormalized[]> {
 
 function orgToCreateDto(org: Organization | any) {
     return {
-        orgName: org?.orgName ?? null,                                  // ← добавлено
+        orgName: org?.orgName ?? null,                                 
         street: org?.officialAddress?.street ?? org?.street ?? null,
         annualTurnover: Number(org?.annualTurnover),
         employeesCount: Number(org?.employeesCount),
@@ -102,7 +102,7 @@ export async function createOrganization(org: Organization | any): Promise<{ id:
 
 function personToCreateDto(p: Person | any) {
     return {
-        perName: p?.perName ?? null,                                    // ← добавлено
+        perName: p?.perName ?? null,                                  
         eyeColor: p?.eyeColor ?? null,
         hairColor: p?.hairColor,
         location: {
