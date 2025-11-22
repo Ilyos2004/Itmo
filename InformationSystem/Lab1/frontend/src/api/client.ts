@@ -7,7 +7,7 @@ const baseURL = ''
 export const http = axios.create({ baseURL })
 
 
-// Глобальный перехватчик ошибок (показ сообщений)
+
 http.interceptors.response.use(
     (r) => r,
     (err) => {

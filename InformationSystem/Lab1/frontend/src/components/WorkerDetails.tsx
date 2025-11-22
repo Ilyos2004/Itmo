@@ -2,7 +2,6 @@ import type { Worker } from '@/models/worker'
 import { fmtDate, fmtMoney } from '@/utils/format'
 
 export default function WorkerDetails({ w }: { w: Worker | any }) {
-    // поддержка обоих форматов ответа: вложенные объекты или *_Id
     const org = (w as any).organization ?? null
     const orgId = (w as any).organizationId ?? null
 

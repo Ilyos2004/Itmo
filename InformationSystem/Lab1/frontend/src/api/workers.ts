@@ -48,8 +48,7 @@ export async function listWorkers(params?: {
         filtered = [...filtered].sort((a: any, b: any) => {
             const va = a?.[sortBy]
             const vb = b?.[sortBy]
-
-            // null/undefined в конец при asc
+            
             if (va == null && vb == null) return 0
             if (va == null) return 1
             if (vb == null) return -1

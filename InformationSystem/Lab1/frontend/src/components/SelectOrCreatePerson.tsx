@@ -33,7 +33,7 @@ export default function SelectOrCreatePerson({ value, onChange }: Props) {
     }, [enabled])
 
     const ensureNew = (): Person => ({
-        perName: '',              // ← добавлено
+        perName: '',              
         eyeColor: null,
         hairColor: 'RED',
         location: { x: 0, y: 0, z: 0, name: '' },

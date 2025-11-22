@@ -13,7 +13,6 @@ public class WorkerSpecifications {
                 Path<String> p = root.get(field);
                 return cb.like(cb.lower(p.as(String.class)), "%" + value.toLowerCase() + "%");
             } catch (IllegalArgumentException ex) {
-                // field not present -> no filtering
                 return cb.conjunction();
             }
         };
