@@ -3,9 +3,6 @@ package com.lab1.lab1.model;
 import com.lab1.lab1.model.enums.OrganizationType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "organizations")
@@ -39,60 +36,24 @@ public class Organization {
     @Column(nullable = false)
     private OrganizationType type;
 
-    public void setEmployeesCount(@Positive Long employeesCount) {
-        this.employeesCount = employeesCount;
-    }
 
-    public @Positive Long getEmployeesCount() {
-        return employeesCount;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Address getOfficialAddress() { return officialAddress; }
+    public void setOfficialAddress(Address officialAddress) { this.officialAddress = officialAddress; }
+    public int getAnnualTurnover() { return annualTurnover; }
+    public void setAnnualTurnover(int annualTurnover) { this.annualTurnover = annualTurnover; }
+    public Long getEmployeesCount() { return employeesCount; }
+    public void setEmployeesCount(Long employeesCount) { this.employeesCount = employeesCount; }
+    public int getRating() { return rating; }
+    public void setRating(int rating) { this.rating = rating; }
+    public OrganizationType getType() { return type; }
+    public void setType(OrganizationType type) { this.type = type; }
     public String getOrgName() {
-        return orgName;
-    }
-
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
-    }
-
-    public Address getOfficialAddress() {
-        return officialAddress;
-    }
-
-    public void setOfficialAddress(Address officialAddress) {
-        this.officialAddress = officialAddress;
-    }
-
-    public int getAnnualTurnover() {
-        return annualTurnover;
-    }
-
-    public void setAnnualTurnover(int annualTurnover) {
-        this.annualTurnover = annualTurnover;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public OrganizationType getType() {
-        return type;
-    }
-
-    public void setType(OrganizationType type) {
-        this.type = type;
-    }
+		return orgName;
+	}
+	public void setOrgName(String name) {
+		this.orgName = name;
+	}
 }
 

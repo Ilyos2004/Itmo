@@ -1,8 +1,8 @@
 package com.lab1.lab1.controller;
 
 import com.lab1.lab1.model.Worker;
+import com.lab1.lab1.service.SpecialOpsService;
 import com.lab1.lab1.dto.WorkerDto;
-import com.lab1.lab1.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class SpecialOpsController {
 
     @Autowired
-    private WorkerService specialOpsService;
+    private SpecialOpsService specialOpsService;
 
     // Количество работников с указанным рейтингом
     @GetMapping("/count-by-rating")

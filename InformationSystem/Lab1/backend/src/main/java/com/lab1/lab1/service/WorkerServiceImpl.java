@@ -12,10 +12,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
-import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional
 public class WorkerServiceImpl implements WorkerService {
@@ -95,41 +91,5 @@ public class WorkerServiceImpl implements WorkerService {
     public Page<WorkerDto> list(String filterField, String filterValue, Pageable pageable) {
         Page<Worker> p = workerRepo.findAll(pageable);
         return p.map(WorkerDto::fromEntity);
-    }
-
-    @Override
-    public void indexSalary(Long id, double factor) {
-        Worker w = workerRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Worker not found"));
-        w.setSalary(w.getSalary() * factor);
-        workerRepo.save(w);
-    }
-
-    @Override
-    public void fireWorkerById(Long id) {
-        Worker w = workerRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Worker not found"));
-        w.setStatus(null); // или Status.PROBATION
-        workerRepo.save(w);
-    }
-
-    @Override
-    public List<Long> uniquePersonIds() {
-        return workerRepo.findAll().stream()
-                .map(Worker::getPerson)
-                .filter(p -> p != null)
-                .map(p -> p.getId())
-                .distinct()
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Worker> workersWithStartBefore(ZonedDateTime zdt) {
-        return workerRepo.findByStartDateBefore(zdt);
-    }
-
-    @Override
-    public long countByRating(int rating) {
-        return workerRepo.countByRating(rating);
     }
 }

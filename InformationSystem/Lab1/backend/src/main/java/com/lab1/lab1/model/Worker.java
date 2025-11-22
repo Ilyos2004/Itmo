@@ -3,9 +3,6 @@ package com.lab1.lab1.model;
 import com.lab1.lab1.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.time.ZonedDateTime;
