@@ -4,8 +4,11 @@ import com.lab1.lab1.model.Location;
 import com.lab1.lab1.model.Person;
 import com.lab1.lab1.model.enums.Color;
 import jakarta.validation.constraints.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 public class PersonDto {
 
     private Long id;
@@ -115,29 +118,4 @@ public class PersonDto {
         if (this.passportID != null) p.setPassportID(this.passportID);
         else { p.setPassportID(p.getPassportID()); }
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Color getEyeColor() { return eyeColor; }
-    public void setEyeColor(Color eyeColor) { this.eyeColor = eyeColor; }
-    public Color getHairColor() { return hairColor; }
-    public void setHairColor(Color hairColor) { this.hairColor = hairColor; }
-    public LocationDto getLocation() { return location; }
-    public void setLocation(LocationDto location) { this.location = location; }
-    public LocalDateTime getBirthday() { return birthday; }
-    public void setBirthday(LocalDateTime birthday) { this.birthday = birthday; }
-    public Long getHeight() { return height; }
-    public void setHeight(Long height) { this.height = height; }
-    public Double getWeight() { return weight; }
-    public void setWeight(Double weight) { this.weight = weight; }
-    public String getPassportID() { return passportID; }
-    public String getPerName() {
-		return perName;
-	}
-
-	public void setPerName(String name) {
-		this.perName = name;
-	}
-
-	public void setPassportID(String passportID) { this.passportID = passportID; }
 }

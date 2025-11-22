@@ -3,12 +3,14 @@ package com.lab1.lab1.model;
 import com.lab1.lab1.model.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "workers")
+@Data
 public class    Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,26 +58,4 @@ public class    Worker {
         creationDate = new Date();
     }
 
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public Coordinates getCoordinates() { return coordinates; }
-    public void setCoordinates(Coordinates coordinates) { this.coordinates = coordinates; }
-    public Date getCreationDate() { return creationDate; }
-    public Organization getOrganization() { return organization; }
-    public void setOrganization(Organization organization) { this.organization = organization; }
-    public double getSalary() { return salary; }
-    public void setSalary(double salary) { this.salary = salary; }
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
-    public ZonedDateTime getStartDate() { return startDate; }
-    public void setStartDate(ZonedDateTime startDate) { this.startDate = startDate; }
-    public java.time.LocalDate getEndDate() { return endDate; }
-    public void setEndDate(java.time.LocalDate endDate) { this.endDate = endDate; }
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
-    public Person getPerson() { return person; }
-    public void setPerson(Person person) { this.person = person; }
 }
