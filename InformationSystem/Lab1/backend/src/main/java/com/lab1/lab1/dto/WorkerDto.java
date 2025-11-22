@@ -5,9 +5,14 @@ import com.lab1.lab1.model.Person;
 import com.lab1.lab1.model.enums.Status;
 import com.lab1.lab1.model.Worker;
 import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+@Data
 public class WorkerDto {
 
     private Long id;
@@ -71,27 +76,4 @@ public class WorkerDto {
         return dto;
     }
 
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public CoordinatesDto getCoordinates() { return coordinates; }
-    public void setCoordinates(CoordinatesDto coordinates) { this.coordinates = coordinates; }
-    public ZonedDateTime getCreationDate() { return creationDate; }
-    public void setCreationDate(ZonedDateTime creationDate) { this.creationDate = creationDate; }
-    public Long getOrganizationId() { return organizationId; }
-    public void setOrganizationId(Long organizationId) { this.organizationId = organizationId; }
-    public Double getSalary() { return salary; }
-    public void setSalary(Double salary) { this.salary = salary; }
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
-    public ZonedDateTime getStartDate() { return startDate; }
-    public void setStartDate(ZonedDateTime startDate) { this.startDate = startDate; }
-    public LocalDate getEndDate() { return endDate; }
-    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
-    public Status getStatus() { return status; }
-    public void setStatus(Status status) { this.status = status; }
-    public Long getPersonId() { return personId; }
-    public void setPersonId(Long personId) { this.personId = personId; }
 }

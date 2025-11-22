@@ -3,9 +3,13 @@ package com.lab1.lab1.dto;
 import com.lab1.lab1.model.*;
 import com.lab1.lab1.model.enums.OrganizationType;
 import jakarta.validation.constraints.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+@Data
 public class OrganizationDto {
 
     private static final Logger log = LogManager.getLogger(OrganizationDto.class);
@@ -81,25 +85,4 @@ public class OrganizationDto {
         if (this.type != null) { org.setType(this.type); }
         else { org.setType(org.getType()); }
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getStreet() { return street; }
-    public void setStreet(String street) { this.street = street; }
-    public Integer getAnnualTurnover() { return annualTurnover; }
-    public void setAnnualTurnover(Integer annualTurnover) { this.annualTurnover = annualTurnover; }
-    public Long getEmployeesCount() { return employeesCount; }
-    public void setEmployeesCount(Long employeesCount) { this.employeesCount = employeesCount; }
-    public Integer getRating() { return rating; }
-    public void setRating(Integer rating) { this.rating = rating; }
-    public OrganizationType getType() { return type; }
-    public void setType(OrganizationType type) { this.type = type; }
-
-	public String getOrgName() {
-		return orgName;
-	}
-
-	public void setorgName(String name) {
-		this.orgName = name;
-	}
 }
