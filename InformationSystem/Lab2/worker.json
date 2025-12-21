@@ -1,0 +1,31 @@
+[
+  {
+    "name": "Ale3qwe4cx",
+    "salary": 2500,
+    "rating": 5,
+    "startDate": "2025-12-01T10:00:00+05:00",
+    "endDate": "2026-12-01",
+    "status": "HIRED",
+    "coordinates": { "x": 10, "y": 20.5 },
+
+    "organization": {
+      "orgName": "ITMO",
+      "street": "Kronverksky 49",
+      "annualTurnover": 25000,
+      "employeesCount": 100,
+      "rating": 10,
+      "type": "GOVERNMENT"
+    },
+
+    "person": {
+      "perName": "sdfd454sf",
+      "eyeColor": "BLUE",
+      "hairColor": "RED",
+      "location": { "x": 1.2, "y": 10, "z": 3.4, "name": "SPB" },
+      "birthday": "2005-01-01T00:00:00",
+      "height": 180,
+      "weight": 75.5,
+      "passportID": "8554785558858"
+    }
+  }
+]
