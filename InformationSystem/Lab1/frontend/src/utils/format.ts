@@ -1,0 +1,2 @@
+export const fmtMoney = (n?: number | null) => n == null ? '—' : new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', maximumFractionDigits: 0 }).format(n)
+export const fmtDate = (s?: string | null) => s ? new Date(s).toLocaleString() : '—'
