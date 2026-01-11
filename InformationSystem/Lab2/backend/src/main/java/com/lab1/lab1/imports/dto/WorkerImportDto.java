@@ -19,7 +19,6 @@ public record WorkerImportDto(
 
         String status,
 
-        // вложенные объекты в той же записи:
         @Valid @NotNull OrganizationImportDto organization,
         @Valid PersonImportDto person
 ) {}
