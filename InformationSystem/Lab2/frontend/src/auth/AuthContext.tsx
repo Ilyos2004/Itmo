@@ -7,7 +7,7 @@ type AuthState = {
     isLoading: boolean
     isAuthed: boolean
     login: (username: string, password: string) => Promise<void>
-    register: (username: string, password: string) => Promise<void> // без роли в UI
+    register: (username: string, password: string) => Promise<void> 
     logout: () => Promise<void>
     refreshMe: () => Promise<void>
 }
@@ -34,7 +34,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             await refreshMe()
             setLoading(false)
         })()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const value = useMemo<AuthState>(() => ({
@@ -52,7 +51,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
         register: async (username, password) => {
             try {
-                // role отправляется внутри apiRegister() как USER
                 await apiRegister(username, password)
             } catch (e) {
                 console.log('[auth] register error:', e)
