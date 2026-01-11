@@ -13,7 +13,7 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // 1) Ошибки @Valid в контроллерах (DTO)
+    // Ошибки @Valid в контроллерах (DTO)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String,String>> handleValidation(MethodArgumentNotValidException ex) {
         var errors = new HashMap<String,String>();
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    // ✅ 2) Ошибки Bean Validation при сохранении Entity (JPA/EclipseLink) — то, что у тебя падает на prePersist
+    // Ошибки Bean Validation при сохранении Entity
     @ExceptionHandler(TransactionSystemException.class)
     public ResponseEntity<Map<String, Object>> handleTx(TransactionSystemException ex) {
         Throwable root = ex.getRootCause();
@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
                 .body(Map.of("error", "TX_ERROR", "message", ex.getMessage()));
     }
 
-    // ✅ 3) Сами нарушения Bean Validation (будут показаны поля и сообщения)
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, Object>> handleConstraintViolation(ConstraintViolationException ex) {
         Map<String, String> errors = new LinkedHashMap<>();
@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
         ));
     }
 
-    // 4) Остальные ошибки
+    // Остальные ошибки
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String,String>> handleRuntime(RuntimeException ex) {
         var m = Map.of("error", ex.getMessage());
