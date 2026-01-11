@@ -35,13 +35,12 @@ function pickMessageFromPayload(data: any): string | null {
     return null
 }
 
-/** анти-спам для alert */
+
 let lastAlertAt = 0
 function safeAlert(msg: string) {
     const now = Date.now()
     if (now - lastAlertAt < 1500) return
     lastAlertAt = now
-    // eslint-disable-next-line no-alert
     alert(msg)
 }
 
@@ -52,13 +51,13 @@ function logBadSuccessResponse(res: any) {
         const status = res?.status
         const ct = res?.headers?.['content-type'] ?? res?.headers?.['Content-Type']
 
-        // 1) пустое тело на 200/201
+        //  пустое тело на 200/201
         if ((status === 200 || status === 201) && (res.data === undefined || res.data === null)) {
             console.log('[http] suspicious success: empty body', { method, url, status, contentType: ct })
             safeAlert(`Сервер вернул пустой ответ: ${method} ${url}`)
         }
 
-        // 2) пришёл HTML вместо JSON
+        //  пришёл HTML вместо JSON
         if (isProbablyHtml(res.data, ct)) {
             console.log('[http] suspicious success: HTML returned', {
                 method, url, status, contentType: ct,
@@ -102,7 +101,7 @@ function buildUserAlert(error: any): string {
 
 export const http = axios.create({
     baseURL: '',
-    withCredentials: true, // если используете cookie/session — оставить true
+    withCredentials: true, 
 })
 
 // request: добавляем Bearer если есть токен
@@ -122,7 +121,7 @@ http.interceptors.request.use(
     }
 )
 
-// response: логируем ошибки и "странные" успешные ответы + показываем alert
+// response: логируем ошибки и странные успешные ответы + показываем alert
 http.interceptors.response.use(
     (res) => {
         logBadSuccessResponse(res)
