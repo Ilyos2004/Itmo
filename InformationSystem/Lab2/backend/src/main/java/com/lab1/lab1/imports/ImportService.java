@@ -50,8 +50,6 @@ public class ImportService {
         this.validator = validator;
     }
 
-    // ---------- PUBLIC API ----------
-
     public ImportOperation importWorkers(MultipartFile file) {
         String username = currentUsername();
         ImportOperation op = createOperation(username, ImportObjectType.WORKER);
@@ -67,15 +65,15 @@ public class ImportService {
 
         } catch (TransactionSystemException e) {
             markFailed(op.getId(), e.getMostSpecificCause() != null ? e.getMostSpecificCause().getMessage() : e.getMessage());
-            throw e; // ✅ ВАЖНО: не заворачиваем!
+            throw e; 
 
         } catch (ConstraintViolationException e) {
             markFailed(op.getId(), e.getMessage());
-            throw e; // ✅
+            throw e; 
 
         } catch (Exception e) {
             markFailed(op.getId(), e.getMessage() == null ? "Unknown error" : e.getMessage());
-            throw new RuntimeException(e); // можно так, чтобы не потерять cause
+            throw new RuntimeException(e); 
         }
     }
 
@@ -87,8 +85,6 @@ public class ImportService {
                 ? opsRepo.findAllByOrderByIdDesc(pageable)
                 : opsRepo.findByUsernameOrderByIdDesc(username, pageable);
     }
-
-    // ---------- TRANSACTIONAL IMPORT (all-or-nothing) ----------
 
     @org.springframework.transaction.annotation.Transactional
     protected int doImportWorkersTransactional(MultipartFile file) throws IOException {
@@ -105,7 +101,6 @@ public class ImportService {
             throw new ImportValidationException(List.of("JSON array is empty"));
         }
 
-        // 1) Валидируем все записи и собираем ошибки
         List<String> errors = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             WorkerImportDto dto = items.get(i);
@@ -119,28 +114,17 @@ public class ImportService {
         if (!errors.isEmpty()) {
             throw new ImportValidationException(errors);
         }
-
-        // 2) Конвертация + бизнес-проверки + сохранение (в одной транзакции)
         List<Worker> toSave = new ArrayList<>();
 
         for (int i = 0; i < items.size(); i++) {
             WorkerImportDto dto = items.get(i);
 
-            // --- Organization: пример бизнес-ограничения уникальности по имени (ЛР2)
-            // (если ты реально это правило добавил)
 
             Organization org = mapOrganization(dto.organization());
 
-            // --- Person (опционально)
             Person person = null;
             if (dto.person() != null) {
                 person = mapPerson(dto.person());
-
-                // Пример бизнес-правила (ЛР2): человек не может работать в 2 организациях одновременно
-                // Реализуй метод existsByPersonId в WorkerRepository и включи проверку:
-                // if (workerRepo.existsByPersonId(person.getId())) ...
-                // Тут person ещё не сохранён, поэтому лучше проверять по passportID (если он уникален в логике)
-                // или сохранять person и проверять person_id.
             }
 
             Worker w = new Worker();
@@ -153,7 +137,6 @@ public class ImportService {
 
             w.setOrganization(org);
 
-            // ВАЖНО: зарплата > 0 уже проверена @Positive
             w.setSalary(dto.salary());
 
             if (dto.rating() != null) w.setRating(dto.rating());
@@ -162,13 +145,10 @@ public class ImportService {
             w.setEndDate(dto.endDate());
 
             if (dto.status() != null) {
-                // если у тебя enum WorkerStatus - распарсь здесь
-                // w.setStatus(WorkerStatus.valueOf(dto.status()));
             }
 
             if (person != null) w.setPerson(person);
 
-            // Пример доп. бизнес-правила (ЛР2): salary >= 10% annualTurnover
             double minSalary = org.getAnnualTurnover() * 0.10;
             if (w.getSalary() < minSalary) {
                 throw new ImportValidationException(List.of("row " + i + ": salary must be >= 10% of annualTurnover"));
@@ -176,10 +156,6 @@ public class ImportService {
 
             toSave.add(w);
         }
-
-        // сохраняем всё пачкой (в одной транзакции)
-        // ВАЖНО: если у тебя каскады не настроены, нужно отдельно сохранять org/person.
-        // Ниже — безопасный вариант: сохраняем вручную
 
         for (Worker w : toSave) {
             Organization savedOrg = orgRepo.save(w.getOrganization());
@@ -196,9 +172,6 @@ public class ImportService {
 
         return toSave.size();
     }
-
-    // ---------- MAPPERS ----------
-
     private Organization mapOrganization(com.lab1.lab1.imports.dto.OrganizationImportDto dto) {
         Organization org = new Organization();
         org.setOrgName(dto.orgName());
@@ -218,9 +191,6 @@ public class ImportService {
     private Person mapPerson(com.lab1.lab1.imports.dto.PersonImportDto dto) {
         Person p = new Person();
         p.setPerName(dto.perName());
-        // eyeColor/hairColor если это enum — распарсь
-        // p.setEyeColor(EyeColor.valueOf(dto.eyeColor()));
-        // p.setHairColor(HairColor.valueOf(dto.hairColor()));
         p.setHairColor(Color.valueOf(dto.hairColor()));
         p.setEyeColor(Color.valueOf(dto.eyeColor()));
 
@@ -231,7 +201,6 @@ public class ImportService {
         loc.setName(dto.location().name());
         p.setLocation(loc);
 
-        // birthday / passport / рост / вес
         p.setBirthday(Timestamp.valueOf(dto.birthday()).toLocalDateTime());
         if (dto.height() != null) p.setHeight(dto.height());
         if (dto.weight() != null) p.setWeight(dto.weight());
@@ -239,9 +208,6 @@ public class ImportService {
 
         return p;
     }
-
-    // ---------- OPERATION RECORDING (REQUIRES_NEW) ----------
-
     @org.springframework.transaction.annotation.Transactional(propagation = Propagation.REQUIRES_NEW)
     protected ImportOperation createOperation(String username, ImportObjectType type) {
         ImportOperation op = new ImportOperation();
@@ -271,8 +237,6 @@ public class ImportService {
         op.setErrorMessage(msg);
         opsRepo.save(op);
     }
-
-    // ---------- AUTH HELPERS ----------
 
     private String currentUsername() {
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
