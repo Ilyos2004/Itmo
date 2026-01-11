@@ -31,10 +31,8 @@ public class ImportOperation {
 
     private Instant finishedAt;
 
-    // только для SUCCESS
     private Integer addedCount;
 
-    // для FAILED
     @Column(length = 2000)
     private String errorMessage;
 }
