@@ -13,7 +13,6 @@ export type MeResponse = {
 
 export type LoginRequest = { username: string; password: string }
 
-// бэк требует role != null → отправляем всегда USER
 export type RegisterRequest = { username: string; password: string; role: 'USER' }
 
 function extractToken(data: any): string | null {
@@ -36,7 +35,6 @@ export async function register(username: string, password: string): Promise<void
     const payload: RegisterRequest = { username, password, role: 'USER' }
     const res = await http.post<any>('/api/auth/register', payload)
 
-    // на всякий случай логируем странный успешный ответ (интерсептор тоже поймает)
     if (res?.data && typeof res.data === 'object' && (res.data.error || res.data.errors)) {
         console.log('[auth] register suspicious response:', res.data)
     }
