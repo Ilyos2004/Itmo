@@ -29,7 +29,7 @@ export default function ImportPage() {
 
     useEffect(() => {
         loadHistory()
-        const t = setInterval(loadHistory, 5000) // авто-обновление истории
+        const t = setInterval(loadHistory, 5000) 
         return () => clearInterval(t)
     }, [])
 
@@ -43,7 +43,6 @@ export default function ImportPage() {
         setBusy(true)
         try {
             const res = await importWorkers(file)
-            // если бэк вернёт что-то полезное — покажем
             if (res && typeof res === 'object') {
                 const id = (res as any).id ?? (res as any).operationId
                 const status = (res as any).status
@@ -52,7 +51,6 @@ export default function ImportPage() {
                 setInfo('Импорт запущен.')
             }
             setFile(null)
-            // сброс input
             const input = document.getElementById('import-file') as HTMLInputElement | null
             if (input) input.value = ''
             await loadHistory()
