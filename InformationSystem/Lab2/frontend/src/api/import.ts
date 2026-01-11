@@ -23,7 +23,7 @@ function toArray(raw: any, embeddedKey?: string): any[] {
 export async function importWorkers(file: File): Promise<any> {
     const fd = new FormData()
 
-    // ВАЖНО: должно совпадать с @RequestPart("file")
+
     fd.append('file', file)
 
     console.log('[import] uploading file:', {
@@ -33,8 +33,7 @@ export async function importWorkers(file: File): Promise<any> {
         field: 'file',
     })
 
-    // Можно вообще НЕ ставить Content-Type вручную, axios сам добавит boundary.
-    // Но так тоже ок.
+
     const res = await http.post('/api/import/workers', fd, {
         headers: { 'Content-Type': 'multipart/form-data' },
     })
